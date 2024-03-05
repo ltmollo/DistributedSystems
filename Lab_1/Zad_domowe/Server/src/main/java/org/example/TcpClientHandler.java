@@ -37,28 +37,28 @@ public class TcpClientHandler extends Thread{
                     sendMessage("ERROR: You have to pass a unique username: " + msg + " is already taken");
                 }
             }
-            System.out.println(msg + " connected");
+            System.out.println("[TCP Client Handler] " + msg + " connected");
             sendMessage("Hello " + msg);
             username = msg;
-            TcpServer.getInstance().addNewTcpClient(username, this);
+            Server.getInstance().addNewTcpClient(username, this);
 
             // read msg, send response
             while (true) {
                 msg = getMessage();
-                System.out.println(username + ": " + msg);
+                System.out.println("[TCP Client Handler] " + username + ": " + msg);
                 if(msg == null || msg.equals("stop")){
                     break;
                 }
-                TcpServer.getInstance().sendMsgToOtherClients(username, msg);
+                Server.getInstance().sendMsgToOtherTcpClients(username, msg);
             }
         }
         catch (IOException e) {
             e.printStackTrace();
-            System.out.println(username + " disconnected");
+            System.out.println("[TCP Client Handler] " + username + " disconnected");
         } finally {
             try {
                 clientSocket.close();
-                TcpServer.getInstance().deleteTcpClients(username);
+                Server.getInstance().deleteTcpClients(username);
                 System.out.println("stopped");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -75,7 +75,7 @@ public class TcpClientHandler extends Thread{
     }
 
     public boolean checkUniqueUsername(String username) {
-        return TcpServer.getInstance().checkUniqueUsername(username);
+        return Server.getInstance().checkUniqueUsername(username);
     }
 
 }

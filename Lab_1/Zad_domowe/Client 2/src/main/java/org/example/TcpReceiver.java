@@ -23,7 +23,7 @@ public class TcpReceiver extends Thread{
                 System.exit(0);
                 break;
             }
-            System.out.println("received response: " + response);
+            System.out.println("[TCP] Received response: " + response);
         }
     }
 }
