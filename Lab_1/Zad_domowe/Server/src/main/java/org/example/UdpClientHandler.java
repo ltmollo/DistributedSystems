@@ -1,37 +1,35 @@
 package org.example;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class UdpClientHandler extends Thread{
+public class UdpClientHandler extends Thread {
 
     private final DatagramSocket socket;
     private final String SYNCHRONIZE_USERNAME = "SYNCHRONIZE_USERNAME";
-    public UdpClientHandler(DatagramSocket socket){
+
+    public UdpClientHandler(DatagramSocket socket) {
         this.socket = socket;
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
 
-        try{
+        try {
 
-            while(true) {
+            while (true) {
                 byte[] receiveBuffer = new byte[1024];
                 DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
                 socket.receive(receivePacket);
                 String msg = getMessage(receivePacket);
 
-                // get Address and Port
                 InetAddress address = receivePacket.getAddress();
                 int port = receivePacket.getPort();
 
                 UdpTuple udpTuple = new UdpTuple(address, port);
 
-                if (msg.startsWith(SYNCHRONIZE_USERNAME)){
+                if (msg.startsWith(SYNCHRONIZE_USERNAME)) {
                     int endIndex = msg.indexOf("!");
                     String username = msg.substring((SYNCHRONIZE_USERNAME + " ").length(), endIndex).trim();
                     Server.getInstance().addNewUdpClient(udpTuple, username);
@@ -40,13 +38,10 @@ public class UdpClientHandler extends Thread{
                     sendMessage(msg, udpTuple);
                     System.out.println("[UDP client handler]: " + msg);
                 }
-                System.out.println("[UDP Port] " + port);
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (socket != null) {
                 socket.close();
             }
@@ -57,7 +52,7 @@ public class UdpClientHandler extends Thread{
         Server.getInstance().sendMsgToOtherUdpClients(udpTuple, socket, msg);
     }
 
-    private String getMessage(DatagramPacket receivePacket ) {
+    private String getMessage(DatagramPacket receivePacket) {
         return new String(receivePacket.getData());
     }
 }

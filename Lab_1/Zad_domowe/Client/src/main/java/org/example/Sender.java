@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.net.*;
 import java.util.Scanner;
 
-public class Sender extends Thread{
+public class Sender extends Thread {
 
     private final PrintWriter out;
     private final Socket socket;
@@ -18,6 +18,7 @@ public class Sender extends Thread{
     private String username;
 
     Scanner scanner = new Scanner(System.in);
+
     public Sender(PrintWriter out, Socket socket, DatagramSocket datagramSocket, MulticastSocket multicastSocket,
                   InetAddress address, int port, InetAddress multicastAddress, int multicastPort) {
         this.out = out;
@@ -31,10 +32,10 @@ public class Sender extends Thread{
     }
 
     @Override
-    public void run(){
+    public void run() {
         while (true) {
             String msg = scanner.nextLine();
-            if (msg.startsWith("U ")){
+            if (msg.startsWith("U ")) {
                 msg = msg.substring(("U ").length());
                 byte[] sendBuffer = msg.getBytes();
 
@@ -44,7 +45,7 @@ public class Sender extends Thread{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (msg.startsWith("M ")){
+            } else if (msg.startsWith("M ")) {
                 msg = msg.substring(("M ").length());
                 msg = "[" + username + "]: " + msg;
                 byte[] sendBuffer = msg.getBytes();
@@ -55,12 +56,10 @@ public class Sender extends Thread{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-
-            else {
+            } else {
                 out.println(msg);
             }
-            if(msg.equals("stop")){
+            if (msg.equals("stop")) {
                 try {
                     this.socket.close();
                 } catch (IOException e) {
@@ -71,7 +70,7 @@ public class Sender extends Thread{
         }
     }
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.username = username;
     }
 }

@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class TcpClientHandler extends Thread{
+public class TcpClientHandler extends Thread {
     private String username;
     private final Socket clientSocket;
     private final PrintWriter out;
@@ -15,7 +15,6 @@ public class TcpClientHandler extends Thread{
     public TcpClientHandler(Socket socket) {
         this.clientSocket = socket;
 
-        // in & out streams
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -25,7 +24,7 @@ public class TcpClientHandler extends Thread{
     }
 
     @Override
-    public void run(){
+    public void run() {
 
         try {
             String msg;
@@ -46,20 +45,18 @@ public class TcpClientHandler extends Thread{
             while (true) {
                 msg = getMessage();
                 System.out.println("[TCP Client Handler] " + username + ": " + msg);
-                if(msg == null || msg.equals("stop")){
+                if (msg == null || msg.equals("stop")) {
                     break;
                 }
                 Server.getInstance().sendMsgToOtherTcpClients(username, msg);
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("[TCP Client Handler] " + username + " disconnected");
         } finally {
             try {
                 clientSocket.close();
-                Server.getInstance().deleteTcpClients(username);
-                System.out.println("stopped");
+                Server.getInstance().deleteClients(username);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

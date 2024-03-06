@@ -1,0 +1,3 @@
+Ja, Adrian Madej oświadczam, że niniejsze zadanie wykonałem samodzielnie.
+
+P.S. Przesyłam 2 klientów, aby łatwiej było uruchomić zadanie w IntelliJ.

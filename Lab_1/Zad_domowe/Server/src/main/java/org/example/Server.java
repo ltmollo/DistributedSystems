@@ -12,23 +12,21 @@ public class Server {
     private static Server instance = null;
 
 
-    public static Server getInstance(){
-        if ( instance == null) {
+    public static Server getInstance() {
+        if (instance == null) {
             instance = new Server();
         }
         return instance;
     }
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         System.out.println("SERVER");
         int portNumber = 12345;
 
-
         Thread tcpServerThread = new Thread(() -> {
             try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
                 while (true) {
-                    // accept client
                     Socket clientSocket = serverSocket.accept();
                     TcpClientHandler newTcpClient = new TcpClientHandler(clientSocket);
                     newTcpClient.start();
@@ -41,7 +39,7 @@ public class Server {
         tcpServerThread.start();
 
         try {
-            DatagramSocket datagramSocket =  new DatagramSocket(portNumber);
+            DatagramSocket datagramSocket = new DatagramSocket(portNumber);
             UdpClientHandler clientHandler = new UdpClientHandler(datagramSocket);
             clientHandler.start();
 
@@ -50,15 +48,16 @@ public class Server {
         }
     }
 
-    public void addNewTcpClient(String username, TcpClientHandler tcpClientHandler){
+    public void addNewTcpClient(String username, TcpClientHandler tcpClientHandler) {
         this.tcpClients.put(username, tcpClientHandler);
     }
+
     public void deleteTcpClients(String username) {
         this.tcpClients.remove(username);
         System.out.println("Deleted: " + username);
     }
 
-    public void sendMsgToOtherTcpClients(String username, String msg){
+    public void sendMsgToOtherTcpClients(String username, String msg) {
         this.tcpClients.forEach((clientUsername, tcpClientHandler) -> {
             if (!clientUsername.equals(username)) {
                 tcpClientHandler.sendMessage("[" + username + "]: " + msg);
@@ -66,33 +65,44 @@ public class Server {
         });
     }
 
-    public void addNewUdpClient(UdpTuple udpTuple, String username){
+    public void addNewUdpClient(UdpTuple udpTuple, String username) {
         this.udpClients.put(udpTuple, username);
     }
 
-    public void sendMsgToOtherUdpClients(UdpTuple udpTuple, DatagramSocket socket, String msg){
+    public void sendMsgToOtherUdpClients(UdpTuple udpTuple, DatagramSocket socket, String msg) {
 
         String senderUsername = this.udpClients.get(udpTuple);
         String msgToSend = "[" + senderUsername + "]: " + msg;
         byte[] sendBuffer = msgToSend.getBytes();
 
-        System.out.println("[Udp Tupple] " + udpTuple + " sender username: " + senderUsername);
         this.udpClients.forEach((tuple, clientUsername) -> {
-            System.out.println("Current tupple: " + tuple + " client name " + clientUsername);
-            if (!udpTuple.equals(tuple)){
+            if (!udpTuple.equals(tuple)) {
                 System.out.println(tuple.address());
-                    DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, tuple.address(), tuple.port());
-                    try {
-                        socket.send(sendPacket);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, tuple.address(), tuple.port());
+                try {
+                    socket.send(sendPacket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    public boolean checkUniqueUsername(String username){
+    public boolean checkUniqueUsername(String username) {
         return !this.tcpClients.containsKey(username);
+    }
+
+    public void deleteUdpClients(String username) {
+        udpClients.entrySet().forEach(entry -> {
+            if (entry.getValue().equals(username)) {
+                udpClients.remove(entry.getKey());
+            }
+        });
+    }
+
+    public void deleteClients(String username) {
+        this.deleteTcpClients(username);
+        this.deleteUdpClients(username);
     }
 
 }

@@ -16,7 +16,7 @@ public record UdpTuple(InetAddress address, int port) {
         return (port == udpTuple.port && udpTuple.address.equals(address));
     }
 
-    public String toString(){
+    public String toString() {
         return address + " - " + port;
     }
 

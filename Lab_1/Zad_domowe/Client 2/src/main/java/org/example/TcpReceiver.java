@@ -3,14 +3,15 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class TcpReceiver extends Thread{
+public class TcpReceiver extends Thread {
     private final BufferedReader in;
-    public TcpReceiver(BufferedReader in){
+
+    public TcpReceiver(BufferedReader in) {
         this.in = in;
     }
 
     @Override
-    public void run(){
+    public void run() {
         String response;
 
         while (true) {

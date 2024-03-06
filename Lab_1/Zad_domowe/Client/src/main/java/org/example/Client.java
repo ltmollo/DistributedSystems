@@ -11,38 +11,40 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
 
-        String hostName = "localhost";
-        int portNumber = 12345;
-        int multicastPortNumber = 12346;
+        String HOSTNAME = "localhost";
+        String MULTICAST_NAME = "230.0.0.0";
+
+        int PORT_NUMBER = 12345;
+        int MULTICAST_PORT_NUMBER = 12346;
+
         Socket socket;
         DatagramSocket datagramSocket;
         MulticastSocket multicastSocket;
-        InetAddress group = InetAddress.getByName("230.0.0.0");
+
+        InetAddress address = InetAddress.getByName(HOSTNAME);
+        InetAddress groupAddress = InetAddress.getByName(MULTICAST_NAME);
 
         final String SYNCHRONIZE_USERNAME = "SYNCHRONIZE_USERNAME";
 
-        System.out.println("JAVA CLIENT");
-
+        System.out.println("CLIENT");
 
         try {
 
-            socket = new Socket(hostName, portNumber);
+            socket = new Socket(HOSTNAME, PORT_NUMBER);
             datagramSocket = new DatagramSocket();
-            multicastSocket = new MulticastSocket(multicastPortNumber);
-            multicastSocket.joinGroup(group);
+            multicastSocket = new MulticastSocket(MULTICAST_PORT_NUMBER);
+            multicastSocket.joinGroup(groupAddress);
 
-            InetAddress address = InetAddress.getByName("localhost");
-
-            // in & out streams
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner scanner = new Scanner(System.in);
 
             final Sender sender = new Sender(out, socket, datagramSocket, multicastSocket, address,
-                    portNumber, group, multicastPortNumber);
+                    PORT_NUMBER, groupAddress, MULTICAST_PORT_NUMBER);
             final TcpReceiver tcpReceiver = new TcpReceiver(in);
-            final UdpReceiver udpReceiver = new UdpReceiver(datagramSocket);
-            final MulticastReceiver multicastReceiver = new MulticastReceiver(multicastSocket);
+            final UdpReceiver udpReceiver = new UdpReceiver(datagramSocket, address, PORT_NUMBER);
+            final MulticastReceiver multicastReceiver = new MulticastReceiver(multicastSocket, groupAddress,
+                    MULTICAST_PORT_NUMBER);
 
             // enter username
             while (true) {
@@ -56,7 +58,7 @@ public class Client {
                 if (!response.contains("ERROR")) {
 
                     byte[] sendBuffer = (SYNCHRONIZE_USERNAME + " " + msg + "!").getBytes();
-                    DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, address, portNumber);
+                    DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, address, PORT_NUMBER);
                     datagramSocket.send(sendPacket);
                     sender.setUsername(msg);
                     break;
