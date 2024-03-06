@@ -2,8 +2,6 @@ package org.example;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.Socket;
-import java.net.SocketException;
 
 public class TcpReceiver extends Thread{
     private final BufferedReader in;

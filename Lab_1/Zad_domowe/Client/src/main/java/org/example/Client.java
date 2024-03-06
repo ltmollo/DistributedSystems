@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.Socket;
+import java.net.*;
 import java.util.Scanner;
 
 public class Client {
@@ -16,8 +13,12 @@ public class Client {
 
         String hostName = "localhost";
         int portNumber = 12345;
+        int multicastPortNumber = 12346;
         Socket socket;
         DatagramSocket datagramSocket;
+        MulticastSocket multicastSocket;
+        InetAddress group = InetAddress.getByName("230.0.0.0");
+
         final String SYNCHRONIZE_USERNAME = "SYNCHRONIZE_USERNAME";
 
         System.out.println("JAVA CLIENT");
@@ -26,8 +27,9 @@ public class Client {
         try {
 
             socket = new Socket(hostName, portNumber);
-
             datagramSocket = new DatagramSocket();
+            multicastSocket = new MulticastSocket(multicastPortNumber);
+            multicastSocket.joinGroup(group);
 
             InetAddress address = InetAddress.getByName("localhost");
 
@@ -36,9 +38,11 @@ public class Client {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner scanner = new Scanner(System.in);
 
-            final Sender sender = new Sender(out, socket, datagramSocket, address, portNumber);
+            final Sender sender = new Sender(out, socket, datagramSocket, multicastSocket, address,
+                    portNumber, group, multicastPortNumber);
             final TcpReceiver tcpReceiver = new TcpReceiver(in);
             final UdpReceiver udpReceiver = new UdpReceiver(datagramSocket);
+            final MulticastReceiver multicastReceiver = new MulticastReceiver(multicastSocket);
 
             // enter username
             while (true) {
@@ -54,18 +58,17 @@ public class Client {
                     byte[] sendBuffer = (SYNCHRONIZE_USERNAME + " " + msg + "!").getBytes();
                     DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, address, portNumber);
                     datagramSocket.send(sendPacket);
+                    sender.setUsername(msg);
                     break;
                 }
             }
 
-            // send msg, read response
+            System.out.println("Now you can send messages: ");
+            sender.start();
+            tcpReceiver.start();
+            udpReceiver.start();
+            multicastReceiver.start();
 
-            if (true) {
-                System.out.println("Now you can send messages: ");
-                sender.start();
-                tcpReceiver.start();
-                udpReceiver.start();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

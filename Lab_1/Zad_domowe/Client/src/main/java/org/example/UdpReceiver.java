@@ -4,13 +4,13 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 
 public class UdpReceiver extends Thread{
     private final DatagramSocket socket;
     public UdpReceiver(DatagramSocket datagramSocket) {
         this.socket = datagramSocket;
     }
+    @Override
     public void run() {
 
         int portNumber = 12345;
@@ -21,7 +21,6 @@ public class UdpReceiver extends Thread{
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
-
 
         try {
 

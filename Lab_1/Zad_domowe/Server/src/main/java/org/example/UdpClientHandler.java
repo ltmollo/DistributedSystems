@@ -31,7 +31,7 @@ public class UdpClientHandler extends Thread{
 
                 UdpTuple udpTuple = new UdpTuple(address, port);
 
-                if (msg.contains(SYNCHRONIZE_USERNAME)){
+                if (msg.startsWith(SYNCHRONIZE_USERNAME)){
                     int endIndex = msg.indexOf("!");
                     String username = msg.substring((SYNCHRONIZE_USERNAME + " ").length(), endIndex).trim();
                     Server.getInstance().addNewUdpClient(udpTuple, username);
@@ -40,7 +40,7 @@ public class UdpClientHandler extends Thread{
                     sendMessage(msg, udpTuple);
                     System.out.println("[UDP client handler]: " + msg);
                 }
-                System.out.println("UDP Port] " + port);
+                System.out.println("[UDP Port] " + port);
             }
         }
         catch(Exception e){

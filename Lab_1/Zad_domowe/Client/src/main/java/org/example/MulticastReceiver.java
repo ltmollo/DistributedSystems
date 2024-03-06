@@ -1,23 +1,20 @@
 package org.example;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
 
-public class UdpReceiver extends Thread{
-    private final DatagramSocket socket;
-    public UdpReceiver(DatagramSocket datagramSocket) {
+public class MulticastReceiver extends Thread{
+    private final MulticastSocket socket;
+    public MulticastReceiver(MulticastSocket datagramSocket) {
         this.socket = datagramSocket;
     }
     @Override
     public void run() {
 
-        int portNumber = 12345;
+        int portNumber = 12346;
         InetAddress address = null;
 
         try {
-            address = InetAddress.getByName("localhost");
+            address = InetAddress.getByName("230.0.0.0");
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
@@ -30,7 +27,7 @@ public class UdpReceiver extends Thread{
                 DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length, address, portNumber);;
                 socket.receive(receivePacket);
                 String msg = new String(receivePacket.getData());
-                System.out.println("[UDP received response]: " + msg);
+                System.out.println("[Multicast received response]: " + msg);
             }
 
 
