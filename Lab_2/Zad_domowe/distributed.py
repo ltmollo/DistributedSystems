@@ -1,15 +1,16 @@
 from fastapi import FastAPI, HTTPException
-
 from fastapi.responses import HTMLResponse
 from starlette import status
 from starlette.responses import JSONResponse
 
 from WeatherClasses import Weather, CurrentWeatherVisualCrossing, CurrentWeatherWeatherApi, CurrentWeather
-from responses import generate_response
+from html_response import generate_response
 from validations import validate
 from auth import authenticate
+from helpers import get_key, generate_json_response
 
-import aiohttp
+API_KEYS_PATH = './api_keys.txt'
+TOKENS_PATH = './tokens.txt'
 
 app = FastAPI()
 
@@ -20,50 +21,30 @@ async def input_details():
     return HTMLResponse(content=html_content, status_code=status.HTTP_200_OK)
 
 @app.get("/test_weather")
-async def fetch_weather_data(app_token: str, location: str, date1: str, date2: str):
+async def fetch_weather_data_api(app_token: str, location: str, date1: str = "", date2: str = ""):
 
     auth_error = authenticate(app_token)
     if auth_error:
         return auth_error
 
-    with open('api_keys.txt', 'r') as f:
-        for line in f:
-            key, value = line.strip().split(' = ')
-            if key == 'visualcrossing_app_key':
-                API_KEY = value
-                break
+    API_KEY = get_key(API_KEYS_PATH, 'VISUAL_CROSSING_APP_KEY')
 
-    url1 = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{location}/{date1}/{date2}?key={API_KEY}"
+    url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{location}/{date1}/{date2}?key={API_KEY}"
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url1) as response:
-            if response.status == 200:
-                return await response.json()
-            else:
-                raise HTTPException(status_code=response.status, detail=f"Failed to fetch weather data: {response}")
+    return await generate_json_response(url)
 
 @app.get("/test2_weather")
-async def fetch_weather_data2(app_token: str, latitude: str, longitude: str):
+async def fetch_weather_data_visual(app_token: str, latitude: str, longitude: str):
 
     auth_error = authenticate(app_token)
     if auth_error:
         return auth_error
 
-    with open('api_keys.txt', 'r') as f:
-        for line in f:
-            key, value = line.strip().split(' = ')
-            if key == 'wheatherApi_app_key':
-                API_KEY = value
-                break
+    API_KEY = get_key(API_KEYS_PATH, 'WEATHER_API_APP_KEY')
 
-    url2 = f"https://api.weatherapi.com/v1/current.json?q={latitude}%2C{longitude}&key={API_KEY}"
+    url = f"https://api.weatherapi.com/v1/current.json?q={latitude}%2C{longitude}&key={API_KEY}"
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url2) as response:
-            if response.status == 200:
-                return await response.json()
-            else:
-                raise HTTPException(status_code=response.status, detail=f"Failed to fetch weather data: {response}")
+    return await generate_json_response(url)
 
 @app.get("/weather")
 async def get_weather(app_token: str, location: str, date1: str = "", date2: str = ""):
@@ -72,14 +53,19 @@ async def get_weather(app_token: str, location: str, date1: str = "", date2: str
     if auth_error:
         return auth_error
     try:
+
         error = validate(location, date1, date2)
         if error is not None:
             return error
-        weather_data = await fetch_weather_data(app_token, location, date1, date2)
-        weather = Weather(weather_data)
-        current_weather_visual = CurrentWeatherVisualCrossing(weather_data.get('currentConditions'))
 
-        api_data = await fetch_weather_data2(app_token, weather.latitude, weather.longitude)
+        weather_data = await fetch_weather_data_api(app_token, location, date1, date2)
+        weather = Weather(weather_data)
+
+        weather_data2 = await fetch_weather_data_api(app_token, location)
+
+        current_weather_visual = CurrentWeatherVisualCrossing(weather_data2.get('currentConditions'))
+
+        api_data = await fetch_weather_data_visual(app_token, weather.latitude, weather.longitude)
         current_weather_api = CurrentWeatherWeatherApi(api_data.get('current'))
 
         current_weather = CurrentWeather(current_weather_visual, current_weather_api)

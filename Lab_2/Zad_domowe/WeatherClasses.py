@@ -51,9 +51,11 @@ class CurrentWeather():
         self.precipprob = weather_visual.precipprob
         self.preciptype = weather_visual.preciptype
         self.icon = weather_api.icon
+
     def calculate_temp(self, temp1, temp2):
         temp_f = calculateMean(temp1, temp2)
         return calculateFahrenheitToCelcius(temp_f)
+
     def calculate_wind_speed(self, wind_speed1, wind_speed2):
         wind_speed = calculateMean(wind_speed1, wind_speed2)
         return calculateMphToKPh(wind_speed)
