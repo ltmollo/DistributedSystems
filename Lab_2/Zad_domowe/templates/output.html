@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Report</title>
+</head>
+<body>
+    <h1>Weather Report</h1>
+    <h2>{{ weather.address }}</h2>
+    <ul>
+        {% for day in weather.days %}
+        <li>
+            <strong>Date:</strong> {{ day.datetime }}<br>
+            <strong>Max Temperature:</strong> {{ day.temp }}<br>
+            <strong>Min Temperature:</strong> {{ day.tempmin }}<br>
+            <strong>Sunrise:</strong> {{ day.sunrise }}<br>
+            <strong>Sunset:</strong> {{ day.sunset }}<br>
+            <ul>
+                {% for hour in day.hours %}
+                <li>
+                    <strong>Time:</strong> {{ hour.datetime }}<br>
+                    <strong>Temperature:</strong> {{ hour.temp }}<br>
+                    <strong>Feels Like:</strong> {{ hour.feels_like }}<br>
+                    <strong>Precipitation Probability:</strong> {{ hour.precipprob }}%<br>
+                    <strong>Precipitation Type:</strong> {{ hour.preciptype }}<br>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
