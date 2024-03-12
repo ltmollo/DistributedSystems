@@ -1,0 +1,2 @@
+visualcrossing_app_key = BB2F85LUQAP9HAFQQFV9C26AD
+wheatherApi_app_key = f681939e8bc84825b2b192939241203
