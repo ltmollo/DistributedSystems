@@ -1,8 +1,8 @@
 import re
 
 from starlette import status
-from starlette.responses import JSONResponse
 from datetime import datetime, timedelta
+from fastapi import HTTPException
 
 
 def validate(location: str, date1: str, date2: str):
@@ -22,14 +22,18 @@ def validate(location: str, date1: str, date2: str):
     if date2_error is not None:
         return date2_error
 
+    date_order_error = validate_date_order(date1, date2)
+    if date_order_error is not None:
+        return date_order_error
+
 
 def validate_location(location: str):
     pattern = re.compile(r'^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s-'']*$')
     error = not bool(pattern.match(location))
 
     if error:
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            content={"error Message": "Invalid location format"})
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Invalid location format")
 
 
 def validate_date(date_str):
@@ -38,5 +42,13 @@ def validate_date(date_str):
     error = date > two_weeks_from_now
 
     if error:
-        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            content={"error Message": "Date must by not late than 2 weeks from now"})
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="Date must by not later than 2 weeks from now")
+
+def validate_date_order(date1_str, date2_str):
+    date1 = datetime.strptime(date1_str, "%Y-%m-%d")
+    date2 = datetime.strptime(date2_str, "%Y-%m-%d")
+
+    if date2 < date1:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail="End date must be greater than or equal to start date")

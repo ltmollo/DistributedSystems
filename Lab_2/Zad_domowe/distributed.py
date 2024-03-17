@@ -8,6 +8,7 @@ from html_response import generate_response
 from validations import validate
 from auth import authenticate
 from helpers import get_key, generate_json_response
+from errors import handle_http_exception
 
 API_KEYS_PATH = './api_keys.txt'
 TOKENS_PATH = './tokens.txt'
@@ -50,14 +51,10 @@ async def fetch_weather_data_api(app_token: str, latitude: str, longitude: str):
 
 @app.get("/weather")
 async def get_weather(app_token: str, location: str, date1: str = "", date2: str = ""):
-    auth_error = authenticate(app_token)
-    if auth_error:
-        return auth_error
     try:
+        authenticate(app_token)
+        validate(location, date1, date2)
 
-        error = validate(location, date1, date2)
-        if error is not None:
-            return error
 
         weather_data = await fetch_weather_data_visual(app_token, location, date1, date2)
         weather = Weather(weather_data)
@@ -74,4 +71,6 @@ async def get_weather(app_token: str, location: str, date1: str = "", date2: str
         html_content = await generate_response(weather, current_weather)
         return HTMLResponse(content=html_content, status_code=200)
     except HTTPException as e:
-        return JSONResponse(status_code=e.status_code, content={"error": e.detail})
+
+        html_content, status_code = handle_http_exception(e)
+        return HTMLResponse(content=html_content, status_code=status_code)

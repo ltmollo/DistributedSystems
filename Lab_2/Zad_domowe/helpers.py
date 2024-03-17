@@ -16,4 +16,6 @@ async def generate_json_response(url: str):
             if response.status == 200:
                 return await response.json()
             else:
-                raise HTTPException(status_code=response.status, detail=f"Failed to fetch weather data: {response}")
+                error_message = await response.text()
+                raise HTTPException(status_code=response.status,
+                                    detail=f"Failed to fetch weather data from: {url}. Server response: {error_message}")
