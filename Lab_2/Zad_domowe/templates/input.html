@@ -9,71 +9,71 @@
 
 <style>
 
-body {
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-form {
-    margin: 20px;
-    padding: 50px 150px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
+    form {
+        margin: 20px;
+        padding: 50px 150px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
 
-label {
-    font-weight: bold;
-}
+    label {
+        font-weight: bold;
+    }
 
-input{
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0px 25px 1px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0px 25px 1px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
 
-input[type="submit"] {
-    background-color: #4CAF50;
-    width: 70%;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    input[type="submit"] {
+        background-color: #4CAF50;
+        width: 70%;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
 
-.container {
-    text-align: center;
-}
+    .container {
+        text-align: center;
+    }
 
 </style>
 <body>
-    <div class="container">
-        <h2>Weather Forecast</h2>
-        <form action="/weather" method="get">
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required><br><br>
+<div class="container">
+    <h2>Weather Forecast</h2>
+    <form action="/weather" method="get">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br><br>
 
-            <label for="date1">Start Date:</label>
-            <input type="date" id="date1" name="date1"><br><br>
+        <label for="date1">Start Date:</label>
+        <input type="date" id="date1" name="date1"><br><br>
 
-            <label for="date2">End Date:</label>
-            <input type="date" id="date2" name="date2"><br><br>
+        <label for="date2">End Date:</label>
+        <input type="date" id="date2" name="date2"><br><br>
 
-            <label for="app_token">App Token:</label>
-            <input type="text" id="app_token" name="app_token" required><br><br>
+        <label for="app_token">App Token:</label>
+        <input type="text" id="app_token" name="app_token" required><br><br>
 
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 </body>
 </html>

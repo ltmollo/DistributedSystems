@@ -4,6 +4,7 @@ from starlette import status
 from starlette.responses import JSONResponse
 from datetime import datetime, timedelta
 
+
 def validate(location: str, date1: str, date2: str):
     location_error = validate_location(location)
     if location_error is not None:
@@ -21,17 +22,17 @@ def validate(location: str, date1: str, date2: str):
     if date2_error is not None:
         return date2_error
 
+
 def validate_location(location: str):
     pattern = re.compile(r'^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s-'']*$')
     error = not bool(pattern.match(location))
 
     if error:
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                     content={"error Message": "Invalid location format"})
+                            content={"error Message": "Invalid location format"})
 
 
 def validate_date(date_str):
-
     date = datetime.strptime(date_str, "%Y-%m-%d")
     two_weeks_from_now = datetime.now() + timedelta(weeks=2)
     error = date > two_weeks_from_now

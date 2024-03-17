@@ -1,5 +1,6 @@
 from calculate import calculateMean, calculateMphToKPh, calculateFahrenheitToCelcius
 
+
 class Weather():
     def __init__(self, response):
         self.address = response.get('address')
@@ -11,6 +12,7 @@ class Weather():
         days_str = ", ".join([str(day) for day in self.days])
         return f"Weather: address={self.address}, days=[{days_str}]"
 
+
 class WeatherDay():
     def __init__(self, day):
         self.datetime = day.get('datetime')
@@ -20,6 +22,7 @@ class WeatherDay():
         self.sunset = day.get('sunset')
         self.hours = [WeatherDayHour(hour) for hour in day.get('hours')]
 
+
 class WeatherDayHour():
     def __init__(self, hour):
         self.datetime = hour.get('datetime')
@@ -27,6 +30,7 @@ class WeatherDayHour():
         self.feelslike = hour.get('feelslike')
         self.precipprob = hour.get('precipprob')
         self.preciptype = hour.get('preciptype')
+
 
 class CurrentWeatherVisualCrossing():
     def __init__(self, data):
@@ -36,12 +40,14 @@ class CurrentWeatherVisualCrossing():
         self.preciptype = data.get('preciptype')
         self.windspeed = data.get('windspeed')
 
+
 class CurrentWeatherWeatherApi():
     def __init__(self, data):
         self.temp = data.get('temp_f')
         self.feelslike = data.get('feelslike_f')
         self.windspeed = data.get('wind_mph')
         self.icon = data.get('condition').get('icon')
+
 
 class CurrentWeather():
     def __init__(self, weather_visual: CurrentWeatherVisualCrossing, weather_api: CurrentWeatherWeatherApi):
@@ -59,4 +65,3 @@ class CurrentWeather():
     def calculate_wind_speed(self, wind_speed1, wind_speed2):
         wind_speed = calculateMean(wind_speed1, wind_speed2)
         return calculateMphToKPh(wind_speed)
-

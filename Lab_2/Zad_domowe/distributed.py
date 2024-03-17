@@ -14,15 +14,16 @@ TOKENS_PATH = './tokens.txt'
 
 app = FastAPI()
 
+
 @app.get("/start")
 async def input_details():
     with open("templates/input.html", "r") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content, status_code=status.HTTP_200_OK)
 
-@app.get("/test_weather")
-async def fetch_weather_data_api(app_token: str, location: str, date1: str = "", date2: str = ""):
 
+@app.get("/test_weather")
+async def fetch_weather_data_visual(app_token: str, location: str, date1: str = "", date2: str = ""):
     auth_error = authenticate(app_token)
     if auth_error:
         return auth_error
@@ -33,9 +34,9 @@ async def fetch_weather_data_api(app_token: str, location: str, date1: str = "",
 
     return await generate_json_response(url)
 
-@app.get("/test2_weather")
-async def fetch_weather_data_visual(app_token: str, latitude: str, longitude: str):
 
+@app.get("/test2_weather")
+async def fetch_weather_data_api(app_token: str, latitude: str, longitude: str):
     auth_error = authenticate(app_token)
     if auth_error:
         return auth_error
@@ -46,9 +47,9 @@ async def fetch_weather_data_visual(app_token: str, latitude: str, longitude: st
 
     return await generate_json_response(url)
 
+
 @app.get("/weather")
 async def get_weather(app_token: str, location: str, date1: str = "", date2: str = ""):
-
     auth_error = authenticate(app_token)
     if auth_error:
         return auth_error
@@ -58,14 +59,14 @@ async def get_weather(app_token: str, location: str, date1: str = "", date2: str
         if error is not None:
             return error
 
-        weather_data = await fetch_weather_data_api(app_token, location, date1, date2)
+        weather_data = await fetch_weather_data_visual(app_token, location, date1, date2)
         weather = Weather(weather_data)
 
-        weather_data2 = await fetch_weather_data_api(app_token, location)
+        weather_data2 = await fetch_weather_data_visual(app_token, location)
 
         current_weather_visual = CurrentWeatherVisualCrossing(weather_data2.get('currentConditions'))
 
-        api_data = await fetch_weather_data_visual(app_token, weather.latitude, weather.longitude)
+        api_data = await fetch_weather_data_api(app_token, weather.latitude, weather.longitude)
         current_weather_api = CurrentWeatherWeatherApi(api_data.get('current'))
 
         current_weather = CurrentWeather(current_weather_visual, current_weather_api)
