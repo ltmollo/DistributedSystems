@@ -18,7 +18,7 @@ public class Sensor implements ISensor {
     public double getMeasurement(Current current) {
         Random random = new Random();
         double measurement = random.nextDouble();
-        System.out.println("[Sensor] " + name + ", getMeasurement: " + measurement + ",id: " + current.id.name + ", category: " + current.id.category);
+        System.out.println("[Sensor] " + name + ", getMeasurement: " + measurement + ", id: " + current.id.name + ", category: " + current.id.category);
         return measurement;
     }
 }

@@ -24,7 +24,7 @@ public class DeviceManager implements IDeviceManager {
 
     @Override
     public List<DeviceInfo> getDeviceList(Current current) {
-        System.out.println("[DeviceManager] " + ", getDeviceList: " + devices + ",id: " + current.id.name + ", category: " + current.id.category);
+        System.out.println("[DeviceManager] " + ", getDeviceList" + ", id: " + current.id.name + ", category: " + current.id.category);
         return devices;
     }
 }

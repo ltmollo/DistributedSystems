@@ -10,10 +10,15 @@ public class Thermometer extends Sensor implements IThermometer {
     }
 
     @Override
+    public double getMeasurement(Current current) {
+        return super.getMeasurement(current) * 10;
+    }
+
+    @Override
     public double countInFahrenheit(Current current) {
         double measurement = super.getMeasurement(current);
         double fahrenheit = measurement * 9 / 5 + 32;
-        System.out.println("[Thermometer] " + name + ", countInFahrenheit: " + fahrenheit + ",id: " + current.id.name + ", category: " + current.id.category);
+        System.out.println("[Thermometer] " + name + ", countInFahrenheit: " + fahrenheit + ", id: " + current.id.name + ", category: " + current.id.category);
         return fahrenheit;
     }
 }

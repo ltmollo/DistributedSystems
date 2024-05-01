@@ -3,8 +3,8 @@ const Smarthome = require('./generated/smarthome').Smarthome;
 const prompt = require('prompt-sync')()
 const devices = require('./commons/devices').devices;
 const servers = require('./commons/config').config;
-const initializeStubs = require('./handlers').initializeStubs
-const handleTelevision = require('./handlers').handleTelevision
+const { initializeStubs, handleTelevision, handleMP3Player, handleCoffeeMaker, handleThermometer, handleCO } = require('./handlers');
+
 
 const getDeviceList = async (communicator) => {
     const proxy = communicator.stringToProxy('deviceManager/Home : ' + servers[1])
@@ -56,7 +56,19 @@ const printDevices = () => {
                     switch(deviceType) {
                         case 'TELEVISION':
                             await handleTelevision(entry)
-                            break;
+                            break
+                        
+                        case 'MP3PLAYER':
+                            await handleMP3Player(entry)
+                            break
+
+                        case 'THERMOMETER':
+                            await handleThermometer(entry)
+                            break
+
+                        case 'CO':
+                            await handleCO(entry)
+                            break
                     }
                 } catch (e) {
                     console.log(e)

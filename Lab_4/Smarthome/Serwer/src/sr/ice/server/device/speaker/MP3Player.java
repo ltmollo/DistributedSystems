@@ -7,6 +7,7 @@ public class MP3Player extends Speaker implements IMP3Player {
 
     private Song song;
     private boolean isPaused;
+
     public MP3Player(String name) {
         super(name);
         song = new Song("Ty On i Ja", "TSA", 3.45, Genre.METAL);
@@ -15,13 +16,15 @@ public class MP3Player extends Speaker implements IMP3Player {
 
     @Override
     public Song getSong(Current current) {
-        System.out.println("[MP3Player] " + name + ", getSong: " + song + ",id: " + current.id.name + ", category: " + current.id.category);
-        return null;
+        automaticallyTurnOnDevice(current);
+        System.out.println("[MP3Player] " + name + ", getSong: " + song + ", id: " + current.id.name + ", category: " + current.id.category);
+        return song;
     }
 
     @Override
     public boolean setSong(Song song, Current current) throws InvalidSongException {
-        System.out.println("[MP3Player] " + name + ", settSong: " + song + ",id: " + current.id.name + ", category: " + current.id.category);
+        automaticallyTurnOnDevice(current);
+        System.out.println("[MP3Player] " + name + ", setSong: " + song + ", id: " + current.id.name + ", category: " + current.id.category);
         if (song == null) {
             throw new InvalidSongException("Song cannot be null!");
         }
@@ -43,8 +46,9 @@ public class MP3Player extends Speaker implements IMP3Player {
     }
 
     @Override
-    public boolean pause(Current current) throws PauseMP3Exception{
-        System.out.println("[MP3Player] " + name + ", pause" + ",id: " + current.id.name + ", category: " + current.id.category);
+    public boolean pause(Current current) throws PauseMP3Exception {
+        automaticallyTurnOnDevice(current);
+        System.out.println("[MP3Player] " + name + ", pause" + ", id: " + current.id.name + ", category: " + current.id.category);
         if (isPaused) {
             throw new PauseMP3Exception("Song is already paused!");
         }
@@ -53,8 +57,9 @@ public class MP3Player extends Speaker implements IMP3Player {
     }
 
     @Override
-    public boolean unpause(Current current) throws PauseMP3Exception{
-        System.out.println("[MP3Player] " + name + ", unpause" + ",id: " + current.id.name + ", category: " + current.id.category);
+    public boolean unpause(Current current) throws PauseMP3Exception {
+        automaticallyTurnOnDevice(current);
+        System.out.println("[MP3Player] " + name + ", unpause" + ", id: " + current.id.name + ", category: " + current.id.category);
         if (!isPaused) {
             throw new PauseMP3Exception("Song is already playing!");
         }

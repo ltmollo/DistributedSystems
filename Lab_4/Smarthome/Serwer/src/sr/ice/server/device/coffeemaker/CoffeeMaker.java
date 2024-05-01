@@ -22,25 +22,29 @@ public class CoffeeMaker extends Device implements ICoffeeMaker {
 
     @Override
     public int getWaterLevel(Current current) {
-        System.out.println("[CoffeeMaker] " + name + ", getWaterLevel: " + waterLevel + ",id: " + current.id.name + ", category: " + current.id.category);
+        automaticallyTurnOnDevice(current);
+        System.out.println("[CoffeeMaker] " + name + ", getWaterLevel: " + waterLevel + ", id: " + current.id.name + ", category: " + current.id.category);
         return waterLevel;
     }
 
     @Override
     public int getCoffeeLevel(Current current) {
-        System.out.println("[CoffeeMaker] " + name + ", getCoffeeLevel: " + coffeeLevel + ",id: " + current.id.name + ", category: " + current.id.category);
+        automaticallyTurnOnDevice(current);
+        System.out.println("[CoffeeMaker] " + name + ", getCoffeeLevel: " + coffeeLevel + ", id: " + current.id.name + ", category: " + current.id.category);
         return coffeeLevel;
     }
 
     @Override
     public Coffee getCurrentCoffee(Current current) {
-        System.out.println("[CoffeeMaker] " + name + ", getCurrentCoffee: " + currentCoffee + ",id: " + current.id.name + ", category: " + current.id.category);
+        automaticallyTurnOnDevice(current);
+        System.out.println("[CoffeeMaker] " + name + ", getCurrentCoffee: " + currentCoffee + ", id: " + current.id.name + ", category: " + current.id.category);
         return currentCoffee;
     }
 
     @Override
     public boolean setCoffee(Coffee coffee, Current current) throws InvalidCoffeeException {
-        System.out.println("[CoffeeMaker] " + name + ", setCoffee: " + coffee + ",id: " + current.id.name + ", category: " + current.id.category);
+        automaticallyTurnOnDevice(current);
+        System.out.println("[CoffeeMaker] " + name + ", setCoffee: " + coffee + ", id: " + current.id.name + ", category: " + current.id.category);
 
         if (coffee == null) {
             throw new InvalidCoffeeException("Coffee cannot be null!");
@@ -58,7 +62,8 @@ public class CoffeeMaker extends Device implements ICoffeeMaker {
 
     @Override
     public Coffee makeCoffee(Current current) throws CoffeeUnderflowException, WaterUnderflowException {
-        System.out.println("[CoffeeMaker] " + name + ", makeCoffee " + ",id: " + current.id.name + ", category: " + current.id.category);
+        automaticallyTurnOnDevice(current);
+        System.out.println("[CoffeeMaker] " + name + ", makeCoffee " + ", id: " + current.id.name + ", category: " + current.id.category);
         int waterNeeded = 200;
         if (waterLevel < waterNeeded) {
             throw new WaterUnderflowException("Not enough amount of water. Must be >= 200!");
@@ -75,21 +80,24 @@ public class CoffeeMaker extends Device implements ICoffeeMaker {
 
     @Override
     public List<CoffeeType> getCoffeeTypes(Current current) {
+        automaticallyTurnOnDevice(current);
         List<CoffeeType> result = Arrays.stream(CoffeeType.values()).toList();
-        System.out.println("[CoffeeMaker] " + name + ", getCoffeeTypes: " + result + ",id: " + current.id.name + ", category: " + current.id.category);
+        System.out.println("[CoffeeMaker] " + name + ", getCoffeeTypes: " + result + ", id: " + current.id.name + ", category: " + current.id.category);
         return result;
     }
 
     @Override
     public List<CoffeeStrength> getCoffeeStrengths(Current current) {
+        automaticallyTurnOnDevice(current);
         List<CoffeeStrength> result = Arrays.stream(CoffeeStrength.values()).toList();
-        System.out.println("[CoffeeMaker] " + name + ", getCoffeeStrengths: " + result + ",id: " + current.id.name + ", category: " + current.id.category);
+        System.out.println("[CoffeeMaker] " + name + ", getCoffeeStrengths: " + result + ", id: " + current.id.name + ", category: " + current.id.category);
         return result;
     }
 
     @Override
-    public boolean addWater(int water, Current current) throws InvalidAmountException{
-        System.out.println("[CoffeeMaker] " + name + ", addWater: " + water + ",id: " + current.id.name + ", category: " + current.id.category);
+    public boolean addWater(int water, Current current) throws InvalidAmountException {
+        automaticallyTurnOnDevice(current);
+        System.out.println("[CoffeeMaker] " + name + ", addWater: " + water + ", id: " + current.id.name + ", category: " + current.id.category);
 
         if (water < 0) {
             throw new InvalidAmountException("You can add only more than 0 ml of water!");
@@ -99,8 +107,9 @@ public class CoffeeMaker extends Device implements ICoffeeMaker {
     }
 
     @Override
-    public boolean addCoffee(int coffee, Current current) throws InvalidAmountException{
-        System.out.println("[CoffeeMaker] " + name + ", addCoffee: " + coffee + ",id: " + current.id.name + ", category: " + current.id.category);
+    public boolean addCoffee(int coffee, Current current) throws InvalidAmountException {
+        automaticallyTurnOnDevice(current);
+        System.out.println("[CoffeeMaker] " + name + ", addCoffee: " + coffee + ", id: " + current.id.name + ", category: " + current.id.category);
         if (coffee < 0) {
             throw new InvalidAmountException("You can add only more than 0 g of coffee!");
         }
