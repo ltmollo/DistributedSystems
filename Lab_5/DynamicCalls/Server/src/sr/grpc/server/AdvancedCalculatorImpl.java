@@ -19,7 +19,7 @@ public class AdvancedCalculatorImpl extends AdvancedCalculatorImplBase {
             responseObserver.onError(INVALID_ARGUMENT.withDescription("Must provide at least 1 arg").
                     asRuntimeException());
             System.out.println("[ComplexOperation]: No agruments");
-			return;
+            return;
         }
 
         double res = 0;
@@ -32,9 +32,11 @@ public class AdvancedCalculatorImpl extends AdvancedCalculatorImplBase {
                 res /= request.getArgsCount();
                 break;
             case MIN:
+                res = request.getArgsList().get(0);
                 for (Double d : request.getArgsList()) res = Math.min(res, d);
                 break;
             case MAX:
+                res = request.getArgsList().get(0);
                 for (Double d : request.getArgsList()) res = Math.max(res, d);
                 break;
             case MULT:
@@ -58,7 +60,7 @@ public class AdvancedCalculatorImpl extends AdvancedCalculatorImplBase {
             responseObserver.onError(INVALID_ARGUMENT.withDescription("Must provide at least 1 arg").
                     asRuntimeException());
             System.out.println("[FindPrimeNumbers] No agruments");
-			return;
+            return;
         }
 
         List<Integer> result = new ArrayList<>();
@@ -77,22 +79,22 @@ public class AdvancedCalculatorImpl extends AdvancedCalculatorImplBase {
     public void findFibonacciNumber(FibonacciNumber request,
                                     StreamObserver<FibonacciResult> responseObserver) {
 
-        if (request.getNumber() < 0) {
+        if (request.getNumber() < 1) {
             responseObserver.onError(INVALID_ARGUMENT.withDescription("Number must be > 0").
                     asRuntimeException());
             System.out.println("[FindFibonacciNumber]: Wrong argument");
-			return;
+            return;
         }
 
         int number = request.getNumber();
 
-        IntStream.range(0, number)
+        IntStream.range(1, number+1)
                 .map(Common::fibonacciNumber)
                 .mapToObj(value -> FibonacciResult.newBuilder().setNumber(value).build())
                 .forEach(result -> {
                     responseObserver.onNext(result);
                     try {
-                        Thread.sleep(1000); // Opóźnienie na sekundę
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
