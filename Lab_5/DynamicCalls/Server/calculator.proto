@@ -1,0 +1,48 @@
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sr.grpc.gen";
+option java_outer_classname = "CalculatorProto";
+
+package calculator;
+
+enum OperationType {
+	SUM = 0;
+    AVG = 1;
+    MIN = 2;
+    MAX = 3;
+    MULT = 4;
+}
+
+message ComplexArithmeticOpArguments {
+  OperationType optype = 1;  
+  repeated double args = 2;
+}
+
+message ComplexArithmeticOpResult {
+  double res = 1;
+}
+
+message PrimesInputToCheck {
+  repeated int32 numbers = 1;
+}
+
+message FibonacciNumber {
+  int32 number = 1;
+}
+
+message FibonacciResult {
+  int32 number = 1;
+}
+
+message PrimesResult {
+  repeated int32 primes = 1;
+}
+     
+service AdvancedCalculator {
+  rpc ComplexOperation (ComplexArithmeticOpArguments) returns (ComplexArithmeticOpResult) {}
+  rpc FindPrimeNumbers(PrimesInputToCheck) returns (PrimesResult) {}
+  rpc FindFibonacciNumber(FibonacciNumber) returns (stream FibonacciResult) {}
+}
+
