@@ -128,7 +128,7 @@ interface ICO extends ISensor {
             idempotent Coffee getCurrentCoffee();
 
             idempotent bool setCoffee(Coffee coffee) throws InvalidCoffeeException;
-            idempotent Coffee makeCoffee() throws WaterUnderflowException, CoffeeUnderflowException;
+            Coffee makeCoffee() throws WaterUnderflowException, CoffeeUnderflowException;
             idempotent coffeeTypes getCoffeeTypes();
             idempotent coffeeStrengths getCoffeeStrengths();
 

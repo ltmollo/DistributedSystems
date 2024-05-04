@@ -41,7 +41,7 @@ const initializeStubs = async (communicator) => {
 const handleTelevision = async (deviceName) => {
     const stub = stubs[deviceName]
 
-    console.log('Commands: getState, turnOn, turnOff, setVolumne, getVolumne, getChannel, getChannels, setChannel')
+    console.log('Commands: getState, turnOn, turnOff, setVolume, getVolume, getChannel, getChannels, setChannel')
     const command = prompt('>>')
     
     if (await handleDeviceCommands(command, stub)) return
@@ -56,7 +56,7 @@ const handleTelevision = async (deviceName) => {
 const handleMP3Player = async (deviceName) => {
     const stub = stubs[deviceName]
 
-    console.log('Commands: getState, turnOn, turnOff, setVolumne, getVolumne, getSong, setSong, pause, unpause')
+    console.log('Commands: getState, turnOn, turnOff, setVolume, getVolume, getSong, setSong, pause, unpause')
     const command = prompt('>>')
     
     if (await handleDeviceCommands(command, stub)) return
@@ -229,7 +229,7 @@ const handleMp3PlayerCommands = async (command, stub) => {
             return true
 
         case 'unpause':
-            console.log(await stub.unPause())
+            console.log(await stub.unpause())
             return true
     }
     return false

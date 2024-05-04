@@ -61,6 +61,10 @@ const printDevices = () => {
                         case 'MP3PLAYER':
                             await handleMP3Player(entry)
                             break
+                        
+                        case 'COFFEEMAKER':
+                            await handleCoffeeMaker(entry)
+                            break
 
                         case 'THERMOMETER':
                             await handleThermometer(entry)

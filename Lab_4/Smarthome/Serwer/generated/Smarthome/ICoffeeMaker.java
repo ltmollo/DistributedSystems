@@ -153,7 +153,7 @@ public interface ICoffeeMaker extends IDevice
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_makeCoffee(ICoffeeMaker obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
         throws com.zeroc.Ice.UserException
     {
-        com.zeroc.Ice.Object._iceCheckMode(com.zeroc.Ice.OperationMode.Idempotent, current.mode);
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
         Coffee ret = obj.makeCoffee(current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();

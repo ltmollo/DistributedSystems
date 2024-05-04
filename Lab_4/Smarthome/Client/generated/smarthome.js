@@ -712,7 +712,7 @@
         [
             Smarthome.InvalidCoffeeException
         ], , ],
-        "makeCoffee": [, 2, 2, , [Smarthome.Coffee], , ,
+        "makeCoffee": [, , , , [Smarthome.Coffee], , ,
         [
             Smarthome.CoffeeUnderflowException,
             Smarthome.WaterUnderflowException

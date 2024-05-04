@@ -234,7 +234,7 @@ public interface ICoffeeMakerPrx extends IDevicePrx
      **/
     default com.zeroc.IceInternal.OutgoingAsync<Coffee> _iceI_makeCoffeeAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Coffee> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "makeCoffee", com.zeroc.Ice.OperationMode.Idempotent, sync, _iceE_makeCoffee);
+        com.zeroc.IceInternal.OutgoingAsync<Coffee> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "makeCoffee", null, sync, _iceE_makeCoffee);
         f.invoke(true, context, null, null, istr -> {
                      Coffee ret;
                      ret = Coffee.ice_read(istr);
