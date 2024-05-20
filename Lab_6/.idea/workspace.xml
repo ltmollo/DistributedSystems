@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="916324c5-09d5-4911-a305-8f6e7baa775e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/src/main/java/org/example/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/src/main/java/org/example/MulticastReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/src/main/java/org/example/Sender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/src/main/java/org/example/TcpReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client 2/src/main/java/org/example/UdpReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/src/main/java/org/example/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/src/main/java/org/example/MulticastReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/src/main/java/org/example/Sender.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/src/main/java/org/example/TcpReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Client/src/main/java/org/example/UdpReceiver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.idea/dbnavigator.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/src/main/java/org/example/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/src/main/java/org/example/TcpClientHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/src/main/java/org/example/UdpClientHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/Server/src/main/java/org/example/UdpTuple.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_1/Zad_domowe/oswiadczenie.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_3/zad-domowe/.ipynb_checkpoints/lab-ray-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab_3/zad-domowe/.ipynb_checkpoints/lab-ray-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab_3/zad-domowe/lab-ray.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab_3/zad-domowe/lab-ray.ipynb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2gSvNpQqHqLbfcVyjRzcmkT9NCU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/ltmol/IdeaProjects/rozprochy/Lab_6",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="916324c5-09d5-4911-a305-8f6e7baa775e" name="Changes" comment="" />
+      <created>1715703758045</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715703758045</updated>
+      <workItem from="1715703758671" duration="32000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
