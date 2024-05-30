@@ -61,7 +61,19 @@ public class Technician {
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
 
+                String[] parts = message.split(" ");
+                String DOCTOR_KEY = parts[0];
                 int timeToSleep = 3;
+
+                if (DOCTOR_KEY.equals("Admin:")) {
+                    System.out.println("Received: " + message);
+                    return;
+                }
+
+                if (parts[2].equals("elbow")){
+                    timeToSleep += 10;
+                }
+
                 try {
                     Thread.sleep(timeToSleep * 1000);
                 } catch (InterruptedException e) {
@@ -71,12 +83,6 @@ public class Technician {
                 channel.basicQos(1);
                 System.out.println("Received: " + message);
 
-                String[] parts = message.split(" ");
-                String DOCTOR_KEY = parts[0];
-
-                if (DOCTOR_KEY.equals("Admin:")) {
-                    return;
-                }
 
                 // send doctor and admin a response
                 String DOCTOR_EXCHANGE_NAME = "doctor_exchange";
