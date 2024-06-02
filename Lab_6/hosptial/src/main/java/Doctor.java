@@ -24,7 +24,7 @@ public class Doctor {
         String DOCTOR_EXCHANGE_NAME = "doctor_exchange";
 
         //doctor exchange
-        channel.exchangeDeclare(DOCTOR_EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        channel.exchangeDeclare(DOCTOR_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
         String QUEUE_NAME = channel.queueDeclare().getQueue();
         channel.queueBind(QUEUE_NAME, DOCTOR_EXCHANGE_NAME, DOCTOR_KEY);
 
@@ -77,13 +77,10 @@ public class Doctor {
 
             // to send messages
             EXCHANGE_NAME = "technician_exchange";
-            String ADMIN_EXCHANGE_NAME = "admin_exchange";
-            channel.exchangeDeclare(ADMIN_EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
-            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
 
             // publish
             channel.basicPublish(EXCHANGE_NAME, key, null, message.getBytes("UTF-8"));
-            channel.basicPublish(ADMIN_EXCHANGE_NAME, "admin", null, message.getBytes("UTF-8"));
         }
     }
 }

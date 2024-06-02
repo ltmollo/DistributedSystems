@@ -41,18 +41,17 @@ public class Technician {
 
         String EXCHANGE_NAME = "technician_exchange";
 
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
         // bind to specialization queue
         for (String specialization : parts) {
             String QUEUE_NAME = specialization + "_queue";
             String KEY = specialization;
 
-            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
             channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, KEY);
         }
 
         // Communicate with Admin
-        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
         String QUEUE_NAME = channel.queueDeclare().getQueue();
         channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, TECHNICIAN_KEY);
 
@@ -65,8 +64,9 @@ public class Technician {
                 String DOCTOR_KEY = parts[0];
                 int timeToSleep = 3;
 
-                if (DOCTOR_KEY.equals("Admin:")) {
+                if (DOCTOR_KEY.equals("Admin")) {
                     System.out.println("Received: " + message);
+                    channel.basicAck(envelope.getDeliveryTag(), false);
                     return;
                 }
 
@@ -86,13 +86,10 @@ public class Technician {
 
                 // send doctor and admin a response
                 String DOCTOR_EXCHANGE_NAME = "doctor_exchange";
-                String ADMIN_EXCHANGE_NAME = "admin_exchange";
-                channel.exchangeDeclare(ADMIN_EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
-                channel.exchangeDeclare(DOCTOR_EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+                channel.exchangeDeclare(DOCTOR_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
 
                 String response = TECHNICIAN_KEY + " -> " + parts[3] + " " + parts[2] + " done";
                 channel.basicPublish(DOCTOR_EXCHANGE_NAME, DOCTOR_KEY, null, response.getBytes("UTF-8"));
-                channel.basicPublish(ADMIN_EXCHANGE_NAME, "admin", null, response.getBytes("UTF-8"));
             }
         };
 

@@ -21,14 +21,17 @@ public class Admin {
 
         String DOCTOR_EXCHANGE_NAME = "doctor_exchange";
         String TECHNICIAN_EXCHANGE_NAME = "technician_exchange";
-        String ADMIN_EXCHANGE_NAME = "admin_exchange";
-        String key = "admin";
+        String key = "#";
 
 
-        // admin exchange
-        channel.exchangeDeclare(ADMIN_EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        // admin listens to exchanges
+        channel.exchangeDeclare(DOCTOR_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+        channel.exchangeDeclare(TECHNICIAN_EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+
         String QUEUE_NAME = channel.queueDeclare().getQueue();
-        channel.queueBind(QUEUE_NAME, ADMIN_EXCHANGE_NAME, key);
+
+        channel.queueBind(QUEUE_NAME, DOCTOR_EXCHANGE_NAME, key);
+        channel.queueBind(QUEUE_NAME, TECHNICIAN_EXCHANGE_NAME, key);
 
 
         Consumer consumer = new DefaultConsumer(channel) {
@@ -66,7 +69,7 @@ public class Admin {
                 continue;
             }
 
-            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
 
             // publish
             channel.basicPublish(EXCHANGE_NAME, name, null, message.getBytes("UTF-8"));
